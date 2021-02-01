@@ -4,6 +4,11 @@ name: terraform-ec2-autoscaling
 steps:
 - name: terraform init
   image: hashicorp/terraform:0.12.26
+  environment:
+    AWS_ACCESS_KEY_ID:
+      from_secret: AWS_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY:
+      from_secret: AWS_SECRET_ACCESS_KEY
   commands:
     - terraform init
   when:
@@ -12,6 +17,11 @@ steps:
       - push
 - name: terraform plan
   image: hashicorp/terraform:0.12.26
+  environment:
+    AWS_ACCESS_KEY_ID:
+      from_secret: AWS_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY:
+      from_secret: AWS_SECRET_ACCESS_KEY
   commands:
     - terraform plan
   when:
@@ -20,6 +30,11 @@ steps:
       - push
 - name: terraform apply
   image: hashicorp/terraform:0.12.26
+  environment:
+    AWS_ACCESS_KEY_ID:
+      from_secret: AWS_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY:
+      from_secret: AWS_SECRET_ACCESS_KEY
   commands:
     - terraform apply -auto-approve
   when:
@@ -28,6 +43,11 @@ steps:
       - push
 - name: terraform destroy
   image: hashicorp/terraform:0.12.26
+  environment:
+    AWS_ACCESS_KEY_ID:
+      from_secret: AWS_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY:
+      from_secret: AWS_SECRET_ACCESS_KEY
   commands:
     - terraform destroy -auto-approve
   when:
