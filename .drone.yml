@@ -1,0 +1,36 @@
+kind: pipeline 
+name: terraform-ec2-autoscaling
+
+steps:
+- name: terraform init
+  image: hashicorp/terraform:0.12.26
+  commands:
+    - terraform init
+  when:
+    event:
+      - pull_request
+      - push
+- name: terraform plan
+  image: hashicorp/terraform:0.12.26
+  commands:
+    - terraform plan
+  when:
+    event:
+      - pull_request
+      - push
+- name: terraform apply
+  image: hashicorp/terraform:0.12.26
+  commands:
+    - terraform apply -auto-approve
+  when:
+    event:
+      - pull_request
+      - push
+- name: terraform destroy
+  image: hashicorp/terraform:0.12.26
+  commands:
+    - terraform destroy -auto-approve
+  when:
+    event:
+      - pull_request
+      - push
